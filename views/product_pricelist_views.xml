@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="product_pricelist_item_form_view_inherit_quarterly" model="ir.ui.view">
+    <field name="name">product.pricelist.item.view.form.inherit.quarterly</field>
+    <field name="model">product.pricelist.item</field>
+    <field name="inherit_id" ref="product.product_pricelist_item_form_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//group[@name='pricelist_rule_limits']" position="inside">
+        <field name="daterange_type" />
+        <label for="daterange_q" invisible="daterange_type != 'quarter'" string="Quarter" />
+        <div class="o_row" invisible="daterange_type != 'quarter'">
+          <field name="daterange_q_year" options="{'format': 0}" /> Q <field name="daterange_q"
+            width="10px" />
+        </div>
+      </xpath>
+      <field name="date_start" position="attributes">
+        <attribute name="readonly">daterange_type == 'quarter'</attribute>
+      </field>
+      <field name="date_end" position="attributes">
+        <attribute name="readonly">daterange_type == 'quarter'</attribute>
+      </field>
+    </field>
+  </record>
+  <record id="product_pricelist_item_tree_view_from_product_inherit_quarterly" model="ir.ui.view">
+    <field name="name">product.pricelist.item.view.tree.inherit.quarterly</field>
+    <field name="model">product.pricelist.item</field>
+    <field name="inherit_id" ref="product.product_pricelist_item_tree_view_from_product" />
+    <field name="arch" type="xml">
+      <field name="date_start" position="before">
+        <field name="quarter" optional="show" />
+      </field>
+    </field>
+  </record>
+  <record id="product_pricelist_view_inherit_quarterly" model="ir.ui.view">
+    <field name="name">product.pricelist.form.view.form.inherit.quarterly</field>
+    <field name="model">product.pricelist</field>
+    <field name="inherit_id" ref="product.product_pricelist_view" />
+    <field name="arch" type="xml">
+      <field name="date_start" position="before">
+        <field name="quarter" optional="show" />
+      </field>
+      <field name="date_start" position="attributes">
+        <attribute name="optional">
+          show</attribute>
+      </field>
+      <field name="date_end" position="attributes">
+        <attribute name="optional">
+          show</attribute>
+      </field>
+    </field>
+  </record>
+</odoo>
